@@ -1,21 +1,27 @@
 #Individual Assignment
 #Connect Github
 
+install.packages("microbenchmark")
+
 library(dplyr)
 library(ggplot2)
 library(tidyverse)
 library(ggpubr)
+library(microbenchmark)
 library(parallel)
 
 #Change directory
-setwd("~/INTI College Penang - BCS/Semester 3_Aug 2022/5011CEM Big Data Programming Project/Assignment/BigDataProgramming/Dataset")
+setwd("~/INTI College Penang - BCS/Semester 3_Aug 2022/5011CEM Big Data Programming Project/Assignment/BigDataProgramming/Dataset/area_level")
 
 #Import the dataset
 #Whole area level
 df <-
-  list.files(path = "/area_level/", pattern = "*.csv") %>%
+  list.files(path = ".", pattern = "*.csv") %>%
   map_df(~read_csv(.))
 df
+
+#Change directory
+setwd("~/INTI College Penang - BCS/Semester 3_Aug 2022/5011CEM Big Data Programming Project/Assignment/BigDataProgramming/Dataset")
 
 #Health
 child_obesity_borough <- read.csv("obesity_diabetes/child_obesity_london_borough_2015-2016.csv")
