@@ -1,8 +1,9 @@
 #Individual Assignment
-#Connect Github
 
+#Install microbenchmark package
 install.packages("microbenchmark")
 
+#Run the libraries
 library(dplyr)
 library(ggplot2)
 library(tidyverse)
@@ -30,20 +31,31 @@ autoplot(Seq)
 numCores <- detectCores()
 numCores
 
-cl <- makeCluster(numCores)
+cl <- parallel::makeCluster(numCores)
 
-clusterEvalQ(cl, 2 + 2)
+clusterEvalQ(cl, {
+  library(parallel)
+  library(tidyverse)
+})
+
+AL_Grocery2 <-
+  list.files(path = ".", pattern = "*.csv") %>%
+  map_df(~read_csv(.))
+AL_Grocery2
 
 Par <- function(i)
 {
-  do.call(rbind, parLapply(list_csv_files, function(x) read.csv(x, stringsAsFactors = FALSE))
+  parLapply(cl, 1:100, AL_Grocery2)
+  stopCluster(cl)
 }
-Par
 
-Par <- microbenchmark("Parallel " = {do.call(rbind, lapply(list_csv_files, function(x) read.csv(x, stringsAsFactors = FALSE)))})
+Par <- microbenchmark("Parallel " = {parLapply(cl, 1:100, AL_Grocery2)})
 Par
 
 autoplot(Par)
+
+
+
 
 #Change directory
 setwd("~/INTI College Penang - BCS/Semester 3_Aug 2022/5011CEM Big Data Programming Project/Assignment/BigDataProgramming/Dataset")
