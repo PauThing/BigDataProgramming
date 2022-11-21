@@ -104,7 +104,7 @@ corrplot(corr = cor(obesity[2:8]),
 
 ggpairs(obesity[2:8])
 
-ggplot(obesity, aes(prevalence_obese_reception, fibre)) + geom_point(size = 1.5, shape = 16) + 
+ggplot(obesity, aes(fibre, prevalence_obese_reception)) + geom_point(size = 1.5, shape = 16) + 
   ggtitle("Child Obesity with Fibre")
 
 #Regression - Nutrients and Child Obesity
@@ -170,7 +170,7 @@ corrplot(corr = cor(obesity2[2:8]),
 
 ggpairs(obesity2[2:8])
 
-ggplot(obesity2, aes(prevalence_obese_reception, energy_fibre)) + geom_point(size = 1.5, shape = 16) + 
+ggplot(obesity2, aes(energy_fibre, prevalence_obese_reception)) + geom_point(size = 1.5, shape = 16) + 
   ggtitle("Child Obesity with Energy of Fibre")
 
 #Regression - Energy of Nutrients and Child Obesity
