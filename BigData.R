@@ -86,6 +86,7 @@ corArr
 
 #Answer: Fibre
 min(corArr)
+head(corArr[order(corArr)], decreasing = FALSE, n =1)
 
 #Plot the correlation
 corrplot(corr = cor(obesity[2:8]),
@@ -103,21 +104,12 @@ corrplot(corr = cor(obesity[2:8]),
 
 ggpairs(obesity[2:8])
 
+ggplot(obesity, aes(prevalence_obese_reception, fibre)) + geom_point(size = 1.5, shape = 16) + 
+  ggtitle("Child Obesity with Fibre")
+
 #Regression - Nutrients and Child Obesity
 #Calculation
 reg <- lm(obesity$prevalence_obese_reception~obesity$carb)
-print(reg)
-
-reg <- lm(obesity$prevalence_obese_reception~obesity$sugar)
-print(reg)
-
-reg <- lm(obesity$prevalence_obese_reception~obesity$fat)
-print(reg)
-
-reg <- lm(obesity$prevalence_obese_reception~obesity$saturate)
-print(reg)
-
-reg <- lm(obesity$prevalence_obese_reception~obesity$protein)
 print(reg)
 
 reg <- lm(obesity$prevalence_obese_reception~obesity$fibre)
@@ -128,21 +120,6 @@ plot(obesity$carb, obesity$prevalence_obese_reception,
      main = "Regression - Child Obesity and Nutrients", 
      abline(lm(obesity$prevalence_obese_reception~obesity$carb)), 
      cex = 1,pch = 16, xlab = "Carbohydrates", ylab = "Child Obesity")
-
-plot(obesity$sugar, obesity$prevalence_obese_reception, 
-     main = "Regression - Child Obesity and Nutrients", 
-     abline(lm(obesity$prevalence_obese_reception~obesity$sugar)), 
-     cex = 1,pch = 16, xlab = "Sugar", ylab = "Child Obesity")
-
-plot(obesity$fat, obesity$prevalence_obese_reception, 
-     main = "Regression - Child Obesity and Nutrients", 
-     abline(lm(obesity$prevalence_obese_reception~obesity$fat)), 
-     cex = 1,pch = 16, xlab = "Fat", ylab = "Child Obesity")
-
-plot(obesity$saturate, obesity$prevalence_obese_reception, 
-     main = "Regression - Child Obesity and Nutrients", 
-     abline(lm(obesity$prevalence_obese_reception~obesity$saturate)), 
-     cex = 1,pch = 16, xlab = "Saturated Fat", ylab = "Child Obesity")
 
 plot(obesity$protein, obesity$prevalence_obese_reception, 
      main = "Regression - Child Obesity and Nutrients", 
@@ -163,7 +140,7 @@ obesity2 <- data %>% select(area_id, prevalence_obese_reception, energy_carb, en
 #View selected data as a dataset
 view(obesity2)
 
-#Correlation - Nutrients and Food Categories
+#Correlation - Energy of Nutrients and Child Obesity
 #Calculation
 corArr2 <- c("Carbohydrates" = cor(obesity2$prevalence_obese_reception, obesity2$energy_carb),
              "Sugar" = cor(obesity2$prevalence_obese_reception, obesity2$energy_sugar), 
@@ -175,6 +152,7 @@ corArr2
 
 #Answer: Fibre
 min(corArr2)
+head(corArr2[order(corArr2)], decreasing = FALSE, n =1)
 
 #Plot the correlation
 corrplot(corr = cor(obesity2[2:8]),
@@ -192,21 +170,12 @@ corrplot(corr = cor(obesity2[2:8]),
 
 ggpairs(obesity2[2:8])
 
+ggplot(obesity2, aes(prevalence_obese_reception, energy_fibre)) + geom_point(size = 1.5, shape = 16) + 
+  ggtitle("Child Obesity with Energy of Fibre")
+
 #Regression - Energy of Nutrients and Child Obesity
 #Calculation
 reg2 <- lm(obesity2$prevalence_obese_reception~obesity2$energy_carb)
-print(reg2)
-
-reg2 <- lm(obesity2$prevalence_obese_reception~obesity2$energy_sugar)
-print(reg2)
-
-reg2 <- lm(obesity2$prevalence_obese_reception~obesity2$energy_fat)
-print(reg2)
-
-reg2 <- lm(obesity2$prevalence_obese_reception~obesity2$energy_saturate)
-print(reg2)
-
-reg2 <- lm(obesity2$prevalence_obese_reception~obesity2$energy_protein)
 print(reg2)
 
 reg2 <- lm(obesity2$prevalence_obese_reception~obesity2$energy_fibre)
@@ -218,21 +187,6 @@ plot(obesity2$energy_carb, obesity2$prevalence_obese_reception,
      abline(lm(obesity2$prevalence_obese_reception~obesity2$energy_carb)), 
      cex = 1,pch = 16, xlab = "Carbohydrates", ylab = "Child Obesity")
 
-plot(obesity2$energy_sugar, obesity2$prevalence_obese_reception, 
-     main = "Regression - Child Obesity and Energy of Nutrients", 
-     abline(lm(obesity2$prevalence_obese_reception~obesity2$energy_sugar)), 
-     cex = 1,pch = 16, xlab = "Sugar", ylab = "Child Obesity")
-
-plot(obesity2$energy_fat, obesity2$prevalence_obese_reception, 
-     main = "Regression - Child Obesity and Energy of Nutrients", 
-     abline(lm(obesity2$prevalence_obese_reception~obesity2$energy_fat)), 
-     cex = 1,pch = 16, xlab = "Fat", ylab = "Child Obesity")
-
-plot(obesity2$energy_saturate, obesity2$prevalence_obese_reception, 
-     main = "Regression - Child Obesity and Energy of Nutrients", 
-     abline(lm(obesity2$prevalence_obese_reception~obesity2$energy_saturate)), 
-     cex = 1,pch = 16, xlab = "Saturated Fat", ylab = "Child Obesity")
-
 plot(obesity2$energy_protein, obesity2$prevalence_obese_reception, 
      main = "Regression - Child Obesity and Energy of Nutrients", 
      abline(lm(obesity2$prevalence_obese_reception~obesity2$energy_protein)), 
@@ -243,3 +197,12 @@ plot(obesity2$energy_fibre, obesity2$prevalence_obese_reception,
      abline(lm(obesity2$prevalence_obese_reception~obesity2$energy_fibre)), 
      cex = 1,pch = 16, xlab = "Fibre", ylab = "Child Obesity")
 
+
+
+
+#Create linear regression model
+model <- lm(data$prevalence_obese_reception~data$fibre)
+
+#Plot the regression model
+print(model)
+print(summary(model))
