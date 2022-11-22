@@ -33,12 +33,6 @@ Seq
 
 autoplot(Seq)
 
-#Change directory
-setwd("~/INTI College Penang - BCS/Dataset/several_al")
-
-#Import the dataset
-csv_files2 <- list.files(path = ".")
-
 #Parallel
 #Whole area level
 Par <- microbenchmark("Parallel " = {do.call(rbind, mclapply(csv_files, function(x) 
